@@ -81,6 +81,8 @@ public class AsciiArtView extends View {
             height += line.isEmpty() ? DEFAULT_TEXT_SIZE : textBounds.height();
         }
 
+        width = getPaddingLeft() + width + getPaddingRight();
+        height = getPaddingTop() + height + getPaddingBottom();
         asciiArtRect.set(0, 0, width, height);
 
         return asciiArtRect;
@@ -94,13 +96,13 @@ public class AsciiArtView extends View {
 
         canvas.scale(scale, scale);
 
-        int y = 0;
+        int y = getPaddingTop();
         String[] lines = getLines();
         for (String line : lines) {
             Rect textBounds = getTextBounds(line);
             y += line.isEmpty() ? DEFAULT_TEXT_SIZE : textBounds.height();
 
-            canvas.drawText(line, 0, y, asciiArtPaint);
+            canvas.drawText(line, getPaddingLeft(), y, asciiArtPaint);
         }
     }
 
