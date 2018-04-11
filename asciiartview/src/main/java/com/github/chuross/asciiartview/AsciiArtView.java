@@ -16,7 +16,6 @@ public class AsciiArtView extends View {
     private static final int DEFAULT_TEXT_SIZE = 40;
     private Paint defaultAsciiArtPaint = new Paint();
     private Paint asciiArtPaint = new Paint();
-    private Rect tempRect = new Rect();
     private String asciiArt;
     private float scale;
 
@@ -38,6 +37,7 @@ public class AsciiArtView extends View {
     private void init() {
         defaultAsciiArtPaint.setTextSize(DEFAULT_TEXT_SIZE);
         defaultAsciiArtPaint.setColor(Color.BLACK);
+        defaultAsciiArtPaint.setAntiAlias(true);
     }
 
     @Override
@@ -54,7 +54,7 @@ public class AsciiArtView extends View {
         scale = (float) getMeasuredWidth() / (float) asciiArtRect.width();
 
         float width = getMeasuredWidth();
-        float height = scale < 1.0F ? asciiArtRect.height() * scale : asciiArtRect.height();
+        float height = asciiArtRect.height() * scale;
 
         setMeasuredDimension(Math.round(width), Math.round(height));
     }
@@ -75,10 +75,9 @@ public class AsciiArtView extends View {
         int width = 0;
         int height = 0;
         for (String line : lines) {
-            tempRect.setEmpty();
-            asciiArtPaint.getTextBounds(line, 0, line.length(), tempRect);
-            width = Math.max(width, (int) asciiArtPaint.measureText(line));
-            height += tempRect.height();
+            Rect textBounds = getTextBounds(line);
+            width = Math.max(width, textBounds.width());
+            height += line.isEmpty() ? DEFAULT_TEXT_SIZE : textBounds.height();
         }
 
         asciiArtRect.set(0, 0, width, height);
@@ -97,14 +96,18 @@ public class AsciiArtView extends View {
         int y = 0;
         String[] lines = getLines();
         for (String line : lines) {
-            tempRect.setEmpty();
-            asciiArtPaint.getTextBounds(line, 0, line.length(), tempRect);
-
-            if (line.isEmpty()) tempRect.set(0, 0, tempRect.width(), DEFAULT_TEXT_SIZE);
+            Rect textBounds = getTextBounds(line);
+            y += line.isEmpty() ? DEFAULT_TEXT_SIZE : textBounds.height();
 
             canvas.drawText(line, 0, y, asciiArtPaint);
-            y += tempRect.height();
         }
+    }
+
+    private Rect getTextBounds(String text) {
+        Paint.FontMetrics metrics = asciiArtPaint.getFontMetrics();
+        float width = asciiArtPaint.measureText(text);
+        float height =  Math.abs(metrics.top) + metrics.bottom;
+        return new Rect(0, 0, Math.round(width), Math.round(height));
     }
 
     public void draw(String asciiArt) {
