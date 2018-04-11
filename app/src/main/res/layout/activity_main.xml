@@ -7,15 +7,15 @@
     android:padding="16dp"
     tools:context=".MainActivity">
 
-    <!--<ScrollView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent">-->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <com.github.chuross.asciiartview.AsciiArtView
             android:id="@+id/asciiart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-    <!--</ScrollView>-->
+    </ScrollView>
 
 </android.support.constraint.ConstraintLayout>
