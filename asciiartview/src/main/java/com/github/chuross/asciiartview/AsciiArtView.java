@@ -8,7 +8,6 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.util.Pair;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -100,6 +99,9 @@ public class AsciiArtView extends View {
         for (String line : lines) {
             tempRect.setEmpty();
             asciiArtPaint.getTextBounds(line, 0, line.length(), tempRect);
+
+            if (line.isEmpty()) tempRect.set(0, 0, tempRect.width(), DEFAULT_TEXT_SIZE);
+
             canvas.drawText(line, 0, y, asciiArtPaint);
             y += tempRect.height();
         }
