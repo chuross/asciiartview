@@ -14,7 +14,7 @@ import android.view.View;
 
 public class AsciiArtView extends View {
 
-    private static final int DEFAULT_TEXT_SIZE = 40;
+    private static final int DEFAULT_TEXT_SIZE = 80;
     private Paint defaultAsciiArtPaint = new Paint();
     private Paint asciiArtPaint = new Paint();
     private String asciiArt;
@@ -60,8 +60,22 @@ public class AsciiArtView extends View {
         setMeasuredDimension(Math.round(width), Math.round(height));
     }
 
-    private String[] getLines() {
-        return asciiArt != null ? asciiArt.split("\n") : new String[] {};
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+
+        if (asciiArt == null) return;
+
+        canvas.scale(scale, scale);
+
+        int y = getPaddingTop();
+        String[] lines = getLines();
+        for (String line : lines) {
+            Rect textBounds = getTextBounds(line);
+            y += line.isEmpty() ? DEFAULT_TEXT_SIZE : textBounds.height();
+
+            canvas.drawText(line, getPaddingLeft(), y, asciiArtPaint);
+        }
     }
 
     @NonNull
@@ -70,7 +84,7 @@ public class AsciiArtView extends View {
 
         if (asciiArt == null) return asciiArtRect;
 
-        String[] lines = asciiArt.split("\n");
+        String[] lines = getLines();
         if (lines.length == 0) return asciiArtRect;
 
         int width = 0;
@@ -88,22 +102,8 @@ public class AsciiArtView extends View {
         return asciiArtRect;
     }
 
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-
-        if (asciiArt == null) return;
-
-        canvas.scale(scale, scale);
-
-        int y = getPaddingTop();
-        String[] lines = getLines();
-        for (String line : lines) {
-            Rect textBounds = getTextBounds(line);
-            y += line.isEmpty() ? DEFAULT_TEXT_SIZE : textBounds.height();
-
-            canvas.drawText(line, getPaddingLeft(), y, asciiArtPaint);
-        }
+    private String[] getLines() {
+        return asciiArt != null ? asciiArt.split("\n") : new String[] {};
     }
 
     private Rect getTextBounds(String text) {
