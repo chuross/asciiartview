@@ -1,6 +1,8 @@
 # AsciiArtView
 This library provide to draw [AsciiArt](https://ja.wikipedia.org/wiki/%E3%82%A2%E3%82%B9%E3%82%AD%E3%83%BC%E3%82%A2%E3%83%BC%E3%83%88).
 
+<img src="https://user-images.githubusercontent.com/1422031/38655664-f60718b2-3e50-11e8-96a0-28edd5076bf6.png" width="400">
+
 ## Usage
 ### `monafont` into assets directory
 This library depends `monafont`.
