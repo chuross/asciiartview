@@ -12,7 +12,7 @@ class MainActivity : AppCompatActivity() {
 
         val asciiArtView = findViewById<AsciiArtView>(R.id.asciiart)
         assets.open("ascii1.txt").bufferedReader().use {
-            asciiArtView.draw(it.readText())
+            asciiArtView.setAsciiArt(it.readText())
         }
         asciiArtView.setTypeface(Typeface.createFromAsset(assets, "mona.ttf"))
     }

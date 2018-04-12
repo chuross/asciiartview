@@ -14,7 +14,7 @@ import android.view.View;
 
 public class AsciiArtView extends View {
 
-    private static final int DEFAULT_TEXT_SIZE = 80;
+    private static final int DEFAULT_TEXT_SIZE = 40;
     private Paint defaultAsciiArtPaint = new Paint();
     private Paint asciiArtPaint = new Paint();
     private String asciiArt;
@@ -113,7 +113,7 @@ public class AsciiArtView extends View {
         return new Rect(0, 0, Math.round(width), Math.round(height));
     }
 
-    public void draw(String asciiArt) {
+    public void setAsciiArt(String asciiArt) {
         this.asciiArt = asciiArt;
         invalidate();
     }
