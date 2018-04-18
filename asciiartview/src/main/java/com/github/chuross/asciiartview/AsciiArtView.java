@@ -1,14 +1,17 @@
 package com.github.chuross.asciiartview;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -22,23 +25,35 @@ public class AsciiArtView extends View {
 
     public AsciiArtView(Context context) {
         super(context);
-        init();
+        init(context, null, 0);
     }
 
-    public AsciiArtView(Context context, @Nullable AttributeSet attrs) {
+    public AsciiArtView(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        init();
+        init(context, attrs, 0);
     }
 
-    public AsciiArtView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public AsciiArtView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init();
+        init(context, attrs, defStyleAttr);
     }
 
-    private void init() {
+    private void init(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         defaultAsciiArtPaint.setTextSize(DEFAULT_TEXT_SIZE);
         defaultAsciiArtPaint.setColor(Color.BLACK);
         defaultAsciiArtPaint.setAntiAlias(true);
+
+        if (attrs == null) return;
+
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.AsciiArtView, defStyleAttr, 0);
+        defaultAsciiArtPaint.setColor(typedArray.getColor(R.styleable.AsciiArtView_aav_color, Color.BLACK));
+        setTypefaceFromAttribute(context, typedArray.getString(R.styleable.AsciiArtView_aav_typeface));
+        typedArray.recycle();
+    }
+
+    private void setTypefaceFromAttribute(Context context, String typefaceName) {
+        if (TextUtils.isEmpty(typefaceName)) return;
+        setTypeface(Typeface.createFromAsset(context.getAssets(), typefaceName));
     }
 
     @Override

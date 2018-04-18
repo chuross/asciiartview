@@ -2,5 +2,6 @@
 <resources>
     <declare-styleable name="AsciiArtView">
         <attr name="aav_color" format="color" />
+        <attr name="aav_typeface" format="string" />
     </declare-styleable>
 </resources>

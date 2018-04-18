@@ -10,11 +10,25 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.github.chuross.asciiartview.AsciiArtView
-            android:id="@+id/asciiart"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp" />
+            android:orientation="vertical">
+
+            <com.github.chuross.asciiartview.AsciiArtView
+                android:id="@+id/asciiart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp" />
+
+            <com.github.chuross.asciiartview.AsciiArtView
+                android:id="@+id/asciiart2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                app:aav_color="@android:color/holo_orange_dark"
+                app:aav_typeface="mona.ttf" />
+        </LinearLayout>
 
     </ScrollView>
 
