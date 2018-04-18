@@ -15,5 +15,10 @@ class MainActivity : AppCompatActivity() {
             asciiArtView.setAsciiArt(it.readText())
         }
         asciiArtView.setTypeface(Typeface.createFromAsset(assets, "mona.ttf"))
+
+        val asciiArtView2 = findViewById<AsciiArtView>(R.id.asciiart2)
+        assets.open("ascii2.txt").bufferedReader().use {
+            asciiArtView2.setAsciiArt(it.readText())
+        }
     }
 }
