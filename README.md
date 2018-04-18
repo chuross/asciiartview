@@ -1,7 +1,27 @@
+[![](https://jitpack.io/v/chuross/asciiartview.svg)](https://jitpack.io/#chuross/asciiartview)
+
 # AsciiArtView
 This library provide to draw [AsciiArt](https://ja.wikipedia.org/wiki/%E3%82%A2%E3%82%B9%E3%82%AD%E3%83%BC%E3%82%A2%E3%83%BC%E3%83%88).
 
 <img src="https://user-images.githubusercontent.com/1422031/38908780-d4c9268a-42fc-11e8-8c72-da5caa4fe9ba.png" width="400">
+
+## Download
+### Gradle
+1. add JitPack repository to your project root `build.gradle`.
+```groovy
+repositories {
+    maven { url "https://jitpack.io" }
+}
+```
+
+2. add the dependency
+[![](https://jitpack.io/v/chuross/asciiartview.svg)](https://jitpack.io/#chuross/asciiartview)
+
+```groovy
+dependencies {
+    compile 'com.github.chuross:asciiartview:x.x.x
+}
+```
 
 ## Usage
 ### `monafont` into assets directory
